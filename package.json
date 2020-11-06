@@ -1,8 +1,9 @@
 {
 	"name": "vs-palette",
 	"description": "Palette of Colors",
-	"version": "0.0.4",
-	"publisher": "Websublime",
+	"version": "0.0.5",
+  "publisher": "Websublime",
+  "icon": "icon.png",
 	"engines": {
 		"vscode": "^1.50.0"
 	},

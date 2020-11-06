@@ -16,8 +16,6 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.registerWebviewPanelSerializer(ColorsViewProvider.webViewType, {
       async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {
         console.log(`Got state: ${state}`);
-        // eslint-disable-next-line no-debugger
-        debugger;
         webviewPanel.webview.html = provider.getWebView().html;
       }
     })
@@ -54,7 +52,7 @@ class ColorsViewProvider implements vscode.WebviewViewProvider {
     webviewView.webview.options = {
       // Allow scripts in the webview
       enableScripts: true,
-      
+
       localResourceRoots: [this._extensionUri],
     };
 
