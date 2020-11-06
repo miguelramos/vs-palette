@@ -1,13 +1,26 @@
 import * as vscode from 'vscode';
+import { LocalStorageService } from './lib/store';
 
 export function activate(context: vscode.ExtensionContext) {
   const provider = new ColorsViewProvider(context.extensionUri);
+  const store = new LocalStorageService(context.workspaceState);
 
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       ColorsViewProvider.viewType,
       provider
     )
+  );
+
+  context.subscriptions.push(
+    vscode.window.registerWebviewPanelSerializer(ColorsViewProvider.webViewType, {
+      async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {
+        console.log(`Got state: ${state}`);
+        // eslint-disable-next-line no-debugger
+        debugger;
+        webviewPanel.webview.html = provider.getWebView().html;
+      }
+    })
   );
 
   context.subscriptions.push(
@@ -25,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 class ColorsViewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = 'palette.colorsView';
+  public static readonly webViewType = 'palette.webColorsView';
 
   private _view?: vscode.WebviewView;
 
@@ -40,11 +54,13 @@ class ColorsViewProvider implements vscode.WebviewViewProvider {
     webviewView.webview.options = {
       // Allow scripts in the webview
       enableScripts: true,
-
+      
       localResourceRoots: [this._extensionUri],
     };
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+    console.dir(context.state);
 
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
@@ -56,6 +72,10 @@ class ColorsViewProvider implements vscode.WebviewViewProvider {
         }
       }
     });
+  }
+
+  public getWebView() {
+    return this._view.webview;
   }
 
   public addColor() {

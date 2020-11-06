@@ -15,6 +15,7 @@
 	],
 	"activationEvents": [
 		"onView:palette.colorsView",
+		"onWebviewPanel:palette.webColorsView",
 		"onCommand:palette.addColor",
 		"onCommand:palette.clearColors"
 	],

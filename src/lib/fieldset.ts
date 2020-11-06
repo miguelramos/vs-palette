@@ -27,12 +27,10 @@ function createFieldset(title: string, listener: (title: string) => void ) {
 }
 
 const api: API = {
-  createFieldset: (title: string) => {
-    return createFieldset(title, api.onTitleChange);
+  createFieldset(title: string) {
+    return createFieldset(title, this.onTitleChange);
   },
   onTitleChange: noop
 };
 
-export default {
-  ...api
-};
+export default api;

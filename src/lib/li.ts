@@ -111,7 +111,8 @@ function createColorInput(
       colorPreview.style.backgroundColor = `#${event.target.value}`;
       colorNameInput.disabled = false;
       colorNameInput.focus();
-      onColorChange(event.target.value);
+      console.dir(listeners.onColorChange);
+      listeners.onColorChange(event.target.value);
     }, 800);
   });
 
@@ -134,8 +135,7 @@ function createColorInput(
 
 const api: API = {
   createColorInput: (color: COLOR = null) => {
-    const { onColorChange, onColorRemove, onNameChange } = api;
-    return createColorInput(color, { onColorChange, onColorRemove, onNameChange } );
+    return createColorInput(color, { onColorChange: api.onColorChange, onColorRemove: api.onColorRemove, onNameChange: api.onNameChange } );
   },
   onColorRemove: noop,
   onColorChange: noop,

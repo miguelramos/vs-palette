@@ -11,31 +11,32 @@ import liApi from './lib/li';
       name: 'New Palette (click to edit)',
       colors: {},
     };
-    let { colors } = state;
-
-    const hasColors = () => !!Object.keys(colors).length;
+    console.dir(state);
+    console.dir(vscode);
+    const hasColors = () => !!Object.keys(state.colors).length;
 
     const { createFieldset } = fieldsetApi;
     const { createGroup } = ulApi;
     const { createColorInput } = liApi;
 
     fieldsetApi.onTitleChange = (title: string) => {
-      vscode.setState({ name: title, colors });
+      vscode.setState({ name: title, colors: state.colors });
     };
 
     liApi.onColorChange = (color) => {
-      colors[color] = '';
-      vscode.setState({ name: state.name, colors });
+      state.colors[color] = '';
+      vscode.setState({ name: state.name, colors: state.colors });
     };
 
     liApi.onColorRemove = (color) => {
-      delete colors[color];
-      vscode.setState({ name: state.name, colors });
+      delete state.colors[color];
+      vscode.setState({ name: state.name, colors: state.colors });
     };
 
     liApi.onNameChange = (color, name) => {
-      colors[color] = name;
-      vscode.setState({ name: state.name, colors });
+      state.colors[color] = name;
+      vscode.setState({ name: state.name, colors: state.colors });
+      console.dir(state);
     };
 
     const fieldset = createFieldset(state.name);
@@ -51,16 +52,16 @@ import liApi from './lib/li';
         }
         case 'clearColors': {
           ul.innerHTML = '';
-          colors = {};
-          vscode.setState({ name: state.name, colors });
+          state.colors = {};
+          vscode.setState({ name: state.name, colors: state.colors });
           break;
         }
       }
     });
 
     if (hasColors()) {
-      Object.keys(colors).forEach((key) => {
-        const li = createColorInput({ value: key, name: colors[key] });
+      Object.keys(state.colors).forEach((key) => {
+        const li = createColorInput({ value: key, name: state.colors[key] });
         ul.appendChild(li);
       });
     }
