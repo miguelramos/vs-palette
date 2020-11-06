@@ -90,18 +90,14 @@ class ColorsViewProvider implements vscode.WebviewViewProvider {
     const codiconsUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._extensionUri,
-        'node_modules',
-        'vscode-codicons',
-        'dist',
+        'media',
         'codicon.css'
       )
     );
     const codiconsFontUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._extensionUri,
-        'node_modules',
-        'vscode-codicons',
-        'dist',
+        'media',
         'codicon.ttf'
       )
     );
