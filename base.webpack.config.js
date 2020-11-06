@@ -33,7 +33,8 @@ function getWebviewConfig(env, entry, outputFilename) {
 		devtool: !env.production ? 'inline-source-map' : undefined,
 		output: {
 			filename: outputFilename,
-			path: path.resolve(__dirname, 'media')
+			path: path.resolve(__dirname, 'media'),
+			libraryTarget: 'umd'
 		},
 		plugins: [
 			new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
