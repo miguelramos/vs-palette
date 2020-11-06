@@ -11,7 +11,7 @@ type API = {
 
 /**
  * Creates div to preview color.
- * 
+ *
  * @param color string
  */
 function createColorPreview(color: string = null) {
@@ -58,7 +58,7 @@ function createColorCopy() {
 /**
  * Creates group element to define color.
  * @param color COLOR
- * @param listeners 
+ * @param listeners
  */
 function createColorInput(
   color: COLOR = null,
@@ -75,8 +75,6 @@ function createColorInput(
   const colorRemove = createColorRemove();
   const colorClip = createColorCopy();
   let timer = 0;
-
-  const { onColorChange, onColorRemove, onNameChange } = listeners;
 
   colorElement.className = 'color-entry';
 
@@ -100,7 +98,7 @@ function createColorInput(
   colorElement.appendChild(colorRemove);
 
   colorRemove.addEventListener('click', () => {
-    onColorRemove(colorInput.value);
+    listeners.onColorRemove(colorInput.value);
     colorElement.remove();
   });
 
@@ -111,7 +109,7 @@ function createColorInput(
       colorPreview.style.backgroundColor = `#${event.target.value}`;
       colorNameInput.disabled = false;
       colorNameInput.focus();
-      console.dir(listeners.onColorChange);
+
       listeners.onColorChange(event.target.value);
     }, 800);
   });
@@ -120,7 +118,7 @@ function createColorInput(
     clearTimeout(timer);
 
     timer = window.setTimeout(() => {
-      onNameChange(event.target.value, colorInput.value);
+      listeners.onNameChange(colorInput.value, event.target.value);
     }, 800);
   });
 
@@ -134,14 +132,16 @@ function createColorInput(
 }
 
 const api: API = {
-  createColorInput: (color: COLOR = null) => {
-    return createColorInput(color, { onColorChange: api.onColorChange, onColorRemove: api.onColorRemove, onNameChange: api.onNameChange } );
+  createColorInput(color: COLOR = null) {
+    return createColorInput(color, {
+      onColorChange: this.onColorChange,
+      onColorRemove: this.onColorRemove,
+      onNameChange: this.onNameChange
+    } );
   },
   onColorRemove: noop,
   onColorChange: noop,
   onNameChange: noop
 };
 
-export default {
-  ...api
-};
+export default api;

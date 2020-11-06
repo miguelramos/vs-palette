@@ -11,13 +11,8 @@ import liApi from './lib/li';
       name: 'New Palette (click to edit)',
       colors: {},
     };
-    console.dir(state);
-    console.dir(vscode);
-    const hasColors = () => !!Object.keys(state.colors).length;
 
-    const { createFieldset } = fieldsetApi;
-    const { createGroup } = ulApi;
-    const { createColorInput } = liApi;
+    const hasColors = () => !!Object.keys(state.colors).length;
 
     fieldsetApi.onTitleChange = (title: string) => {
       vscode.setState({ name: title, colors: state.colors });
@@ -36,17 +31,16 @@ import liApi from './lib/li';
     liApi.onNameChange = (color, name) => {
       state.colors[color] = name;
       vscode.setState({ name: state.name, colors: state.colors });
-      console.dir(state);
     };
 
-    const fieldset = createFieldset(state.name);
-    const ul = createGroup();
+    const fieldset = fieldsetApi.createFieldset(state.name);
+    const ul = ulApi.createGroup();
 
     window.addEventListener('message', (event) => {
       const message = event.data; // The json data that the extension sent
       switch (message.type) {
         case 'addColor': {
-          const li = createColorInput();
+          const li = liApi.createColorInput();
           ul.appendChild(li);
           break;
         }
@@ -61,7 +55,7 @@ import liApi from './lib/li';
 
     if (hasColors()) {
       Object.keys(state.colors).forEach((key) => {
-        const li = createColorInput({ value: key, name: state.colors[key] });
+        const li = liApi.createColorInput({ value: key, name: state.colors[key] });
         ul.appendChild(li);
       });
     }
