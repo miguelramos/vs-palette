@@ -26,7 +26,7 @@ function getExtensionConfig(env) {
 		},
 		output: {
 			filename: '[name].js',
-			path: path.resolve(__dirname, 'media'),
+			path: path.resolve(__dirname, 'out'),
 			libraryTarget: "commonjs",
 			devtoolModuleFilenameTemplate: 'file:///[absolute-resource-path]'
 		}

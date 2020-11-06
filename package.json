@@ -1,5 +1,5 @@
 {
-	"name": "palette-colors",
+	"name": "vs-palette",
 	"description": "Palette of Colors",
 	"version": "0.0.1",
 	"publisher": "Miguel Ramos",
@@ -16,8 +16,7 @@
 	"activationEvents": [
 		"onView:palette.colorsView",
 		"onCommand:palette.addColor",
-		"onCommand:palette.clearColors",
-		"onCommand:palette.addGroup"
+		"onCommand:palette.clearColors"
 	],
 	"repository": {
 		"type": "git",
@@ -38,25 +37,20 @@
 			{
 				"command": "palette.addColor",
 				"category": "Palette Colors",
-				"title": "Add Color"
+				"title": "Add Color",
+				"icon": "$(plus)"
 			},
 			{
 				"command": "palette.clearColors",
 				"category": "Palette Colors",
 				"title": "Clear Colors",
 				"icon": "$(clear-all)"
-			},
-			{
-				"command": "palette.addGroup",
-				"category": "Palette Colors",
-				"title": "New Palette Group",
-				"icon": "$(plus)"
 			}
 		],
 		"menus": {
 			"view/title": [
 				{
-					"command": "palette.addGroup",
+					"command": "palette.addColor",
 					"group": "navigation",
 					"when": "view == palette.colorsView"
 				},
@@ -69,14 +63,10 @@
 		}
 	},
 	"scripts": {
-		"vscode:prepublish:ts": "npm run compile",
-		"compile": "tsc -p ./",
 		"lint": "eslint . --ext .ts,.tsx",
-		"watch": "tsc -w -p ./",
 		"vscode:prepublish": "webpack --mode production",
 		"webpack": "webpack --mode development",
-		"webpack-dev": "webpack --mode development --watch",
-		"test-compile": "tsc -p ./"
+		"webpack-dev": "webpack --mode development --watch"
 	},
 	"dependencies": {},
 	"devDependencies": {
@@ -92,6 +82,7 @@
 		"webpack": "^5.4.0",
 		"webpack-cli": "^4.2.0",
 		"terser-webpack-plugin": "^5.0.3",
-		"merge-options": "^3.0.3"
+		"merge-options": "^3.0.3",
+		"vscode-codicons": "0.0.7"
 	}
 }
