@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2019",
+		"lib": ["ES2019", "DOM"],
+		"outDir": "out",
+		"sourceMap": true,
+		"strict": false,
+    "rootDir": "src",
+    "types": ["node"],
+    "typeRoots": [
+			"./node_modules/@types",
+			"./src/typings/"
+		]
+  },
+  "include": [
+    "src/**/*",
+		"./node_modules/vscode/vscode.d.ts",
+		"./node_modules/vscode/lib/*",
+	],
+	"exclude": ["node_modules", ".vscode-test"]
+}
