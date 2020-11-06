@@ -2,7 +2,7 @@
 	"name": "vs-palette",
 	"description": "Palette of Colors",
 	"version": "0.0.1",
-	"publisher": "Miguel Ramos",
+	"publisher": "Websublime",
 	"engines": {
 		"vscode": "^1.50.0"
 	},
@@ -20,7 +20,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/microsoft/vscode-extension-samples.git"
+		"url": "https://github.com/miguelramos/vs-palette"
 	},
 	"main": "./out/extension.js",
 	"contributes": {
